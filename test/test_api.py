@@ -1,7 +1,7 @@
 import requests
 
-#BASE_URL = "http://localhost:8080"
-BASE_URL = "https://my-demo-01-eczmfeuuaa-uc.a.run.app"
+BASE_URL = "http://localhost:8080"
+#BASE_URL = "https://my-demo-01-eczmfeuuaa-uc.a.run.app"
 
 # Datos de prueba para hired_employees
 hired_employees_data = [
@@ -17,7 +17,7 @@ hired_employees_data = [
         "name": "Lidia Mendez",
         "datetime": "2021-07-27T19:04:09Z",
         "department_id": 1,
-        "job_id": 2
+        "job_id": None
     }
 ]
 
@@ -25,14 +25,14 @@ hired_employees_data = [
 departments_data = [
     {"id": 1, "department": "Supply Chain"},
     {"id": 2, "department": "Maintenance"},
-    {"id": 3, "department": "Staff"}
+    {"id": 3, "department": None}
 ]
 
 # Datos de prueba para jobs
 jobs_data = [
     {"id": 1, "job": "Recruiter"},
     {"id": 2, "job": "Manager"},
-    {"id": 3, "job": "Analyst"}
+    {"id": 3, "job": None}
 ]
 
 def post_data(endpoint, data):

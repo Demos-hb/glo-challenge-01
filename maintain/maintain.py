@@ -47,7 +47,8 @@ def load_csv_to_bigquery(table_name, file_name, schema):
         source_format=bigquery.SourceFormat.CSV,
         write_disposition=bigquery.WriteDisposition.WRITE_TRUNCATE,
         allow_quoted_newlines=True,
-        ignore_unknown_values=True
+        ignore_unknown_values=True,
+        autodetect=False
     )
 
     print(f"Loading {file_name} into {table_id}...")
