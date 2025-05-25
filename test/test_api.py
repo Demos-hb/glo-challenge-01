@@ -1,6 +1,7 @@
 import requests
 
-BASE_URL = "http://localhost:8080"
+#BASE_URL = "http://localhost:8080"
+BASE_URL = "https://my-demo-01-eczmfeuuaa-uc.a.run.app:8080"
 
 # Datos de prueba para hired_employees
 hired_employees_data = [
