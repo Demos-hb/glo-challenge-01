@@ -68,5 +68,5 @@ jobs:
             --platform managed \
             --region $GCP_REGION \
             --allow-unauthenticated \
-            --service-account=$GCP_SA_NAME@$GCP_PROJECT_ID.iam.gserviceaccount.com
+            --service-account=$GCP_SA_NAME@$GCP_PROJECT_ID.iam.gserviceaccount.com \
             --set-env-vars GCP_PROJECT_ID=$GCP_PROJECT_ID
