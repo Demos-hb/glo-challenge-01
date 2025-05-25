@@ -5,6 +5,7 @@ on:
     branches:
       - test
   pull_request:
+      - main
   workflow_dispatch:
     inputs:
       full_deploy:
