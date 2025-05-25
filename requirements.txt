@@ -5,4 +5,4 @@ pydantic
 google-cloud-bigquery
 google-cloud-storage
 fastavro
-
+python-dotenv
