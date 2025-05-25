@@ -8,7 +8,18 @@ on:
   pull_request:
     branches:
       - test
-
+  
+  workflow_dispatch:
+  inputs:
+    full_deploy:
+      description: 'Desplegar todos los scripts SQL nuevamente'
+      required: false
+      default: 'false'
+      type: choice
+      options:
+        - 'false'
+        - 'true'
+        
 env:
   SERVICE_NAME: my-demo-01
   IMAGE_NAME: my-demo-01
