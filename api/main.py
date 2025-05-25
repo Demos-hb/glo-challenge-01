@@ -4,11 +4,14 @@ from pydantic import BaseModel
 from typing import List, Optional
 from google.cloud import bigquery
 
+venv_project_id = os.getenv("GCP_PROJECT_ID")
+
 app = Flask(__name__)
 
 # Instancia del cliente de BigQuery
 client = bigquery.Client()
-project_id = ""
+project_id = venv_project_id
+#project_id = ""
 dataset_id = "temp"  # Ajusta según corresponda
 
 # -------------------------------
