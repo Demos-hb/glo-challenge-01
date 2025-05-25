@@ -52,10 +52,22 @@ def insert_rows_to_bq(table_name: str, rows: List[dict]):
 def upload_hired_employees():
     try:
         data = request.get_json()
+
+        if not isinstance(data, list):
+            return jsonify({"error": "Request body must be a JSON array"}), 400
+
+        if len(data) == 0:
+            return jsonify({"error": "At least one record is required"}), 400
+
+        if len(data) > 1000:
+            return jsonify({"error": "Batch size limit exceeded (max 1000 records)"}), 400
+
         employees = [HiredEmployee(**item) for item in data]
         rows = [employee.dict() for employee in employees]
+
         insert_rows_to_bq("hired_employees", rows)
-        return jsonify({"message": "Hired employees uploaded successfully"})
+        return jsonify({"message": f"{len(rows)} hired employees uploaded successfully"})
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -63,22 +75,39 @@ def upload_hired_employees():
 def upload_departments():
     try:
         data = request.get_json()
+
+        if not isinstance(data, list):
+            return jsonify({"error": "Request body must be a JSON array"}), 400
+        if len(data) == 0:
+            return jsonify({"error": "At least one record is required"}), 400
+        if len(data) > 1000:
+            return jsonify({"error": "Batch size limit exceeded (max 1000 records)"}), 400
+
         departments = [Department(**item) for item in data]
         rows = [dept.dict() for dept in departments]
+
         insert_rows_to_bq("departments", rows)
-        return jsonify({"message": "Departments data uploaded successfully"}), 200
+        return jsonify({"message": f"{len(rows)} departments uploaded successfully"}), 200
     except Exception as e:
-        print("Error:", e)
         return jsonify({"error": str(e)}), 500
 
 @app.route("/jobs", methods=["POST"])
 def upload_jobs():
     try:
         data = request.get_json()
+
+        if not isinstance(data, list):
+            return jsonify({"error": "Request body must be a JSON array"}), 400
+        if len(data) == 0:
+            return jsonify({"error": "At least one record is required"}), 400
+        if len(data) > 1000:
+            return jsonify({"error": "Batch size limit exceeded (max 1000 records)"}), 400
+
         jobs = [Job(**item) for item in data]
         rows = [job.dict() for job in jobs]
+
         insert_rows_to_bq("jobs", rows)
-        return jsonify({"message": "Jobs uploaded successfully"})
+        return jsonify({"message": f"{len(rows)} jobs uploaded successfully"})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

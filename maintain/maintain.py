@@ -101,7 +101,7 @@ def restore_all(date):
 
 if __name__ == "__main__":
     # Descomenta según la operación deseada
-    load_data()
+    #load_data()
     #backup()
-    #restore_all("2025-05-24")  # Asegúrate de usar la fecha correcta
+    restore_all("2025-05-24")  # Asegúrate de usar la fecha correcta
     pass
