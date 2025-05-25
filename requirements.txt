@@ -1,0 +1,8 @@
+Flask==2.2.5
+pandas==2.2.3
+uvicorn
+pydantic
+google-cloud-bigquery
+google-cloud-storage
+fastavro
+
