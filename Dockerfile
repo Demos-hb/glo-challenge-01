@@ -6,5 +6,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Cloud Run usa el puerto 8080 por defecto
 ENV PORT=8080
 
-#CMD ["python", "api.main:app"]
-CMD ["gunicorn", "-b", "0.0.0.0:8080", "api.main:app"]
+CMD ["python", "api.main"]
