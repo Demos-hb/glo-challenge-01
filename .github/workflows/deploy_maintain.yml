@@ -62,17 +62,23 @@ jobs:
 
       - name: Deploy Scheduler Job
         run: |
-          # Obtener la URL real de la función
           FUNCTION_URL=$(gcloud functions describe my-cloud-function-demo-maintain \
             --region=$GCP_REGION \
             --project=$GCP_PROJECT_ID \
             --format="value(serviceConfig.uri)")
 
-          gcloud scheduler jobs create http my-scheduler-demo-maintain \
-            --schedule="55 * * * *" \
-            --uri="$FUNCTION_URL" \
+          COMMON_ARGS="\
+            --schedule='55 * * * *' \
+            --uri=$FUNCTION_URL \
             --http-method=POST \
-            --time-zone="America/Argentina/Buenos_Aires" \
+            --time-zone='America/Argentina/Buenos_Aires' \
             --project=$GCP_PROJECT_ID \
             --location=$GCP_REGION \
-            --quiet || echo "Scheduler job already exists"
+            --quiet"
+
+          if gcloud scheduler jobs describe my-scheduler-demo-maintain \
+            --location=$GCP_REGION --project=$GCP_PROJECT_ID > /dev/null 2>&1; then
+            gcloud scheduler jobs update http my-scheduler-demo-maintain $COMMON_ARGS
+          else
+            gcloud scheduler jobs create http my-scheduler-demo-maintain $COMMON_ARGS
+          fi
