@@ -8,4 +8,4 @@ def main(request):
             bucket_backup="demo-backup-hb"
         )
     result = manager.backup_all()
-return result
+    return result
