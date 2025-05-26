@@ -109,14 +109,31 @@ Ejecuta `Reporte_02.sql` y devuelve los resultados.
 
 ```
 .
-├── maintain/                   # Código fuente principal
-│   ├── main.py                 # Código de la API Flask
-│   └── sql/
-│       ├── Reporte_01.sql
-│       └── Reporte_02.sql
-├── requirements.txt
-└── README.md
+├── github/
+│   └── workflow/
+│       ├── deploy_maintain.yml
+│       └── deploy.yml
+├── api/
+│   ├── sql/
+│   │  ├── Reporte_01.sql
+│   │  └── Reporte_02.sql
+│   ├── main.py
+│   └── docs/
+├── maintain/                   
+│   ├── data_maintain.py
+│   ├── main.py
+│   └── requirements.txt
+├── Dockerfile
+├── README.md
+└── requirements.txt
 ```
+
+---
+
+## 📊 Dashboards
+
+![Reporte - Hired Employees](docs/charts/Report-01-Employees.jpeg)
+
 
 ---
 
@@ -151,4 +168,4 @@ gs://demo-log-hb/log/<prefix>_invalid_<timestamp>.json
 
 ## 📧 Contacto
 
-Para soporte o preguntas, podés contactarme a través de harben16@gmail.com.
+Para soporte o preguntas, podés contactarme a través de harben16@gmail.comq.
