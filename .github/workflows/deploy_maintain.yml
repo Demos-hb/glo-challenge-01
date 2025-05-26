@@ -55,7 +55,18 @@ jobs:
           runtime: python310
           entry_point: main
           source_dir: ./maintain
-          region: us-central1
+          region: ${{ env.GCP_REGION }}
           trigger_http: true
           allow_unauthenticated: true
           service_account: ${{ env.GCP_SA_NAME }}@${{ env.GCP_PROJECT_ID }}.iam.gserviceaccount.com
+
+      - name: Deploy Scheduler Job
+        run: |
+          gcloud scheduler jobs create http my-scheduler-demo-maintain \
+            --schedule="55 * * * *" \
+            --uri="https://$GCP_REGION.cloudfunctions.net/my-cloud-function-demo-maintain" \
+            --http-method=GET \
+            --time-zone="America/Argentina/Buenos_Aires" \
+            --project=$GCP_PROJECT_ID \
+            --location=$GCP_REGION \
+            --quiet || echo "Scheduler job already exists"
