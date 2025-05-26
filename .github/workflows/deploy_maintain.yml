@@ -49,7 +49,7 @@ jobs:
           project_id: ${{ env.GCP_PROJECT_ID }}
 
       - name: Deploy Cloud Function
-        uses: google-github-actions/deploy-cloud-functions@v2
+        uses: google-github-actions/deploy-cloud-functions@v3
         with:
           name: my-cloud-function-demo-maintain
           runtime: python310
@@ -58,5 +58,4 @@ jobs:
           region: us-central1
           trigger_http: true
           allow_unauthenticated: true
-          environment: GEN_2
           service_account: $GCP_SA_NAME@$GCP_PROJECT_ID.iam.gserviceaccount.com
