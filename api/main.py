@@ -19,8 +19,8 @@ storage_client = storage.Client()
 
 #project_id = "iter-data-storage-pv-uat"
 project_id = venv_project_id
-dataset_id = "temp"  # Ajusta según corresponda
-bucket_name = "demo-log-hb"  # Ajusta según corresponda
+dataset_id = "temp"
+bucket_name = "demo-log-hb" 
 
 # -------------------------------
 # Modelos de entrada
@@ -88,6 +88,12 @@ def process_records(data: List[BaseModel], prefix: str, table_name: str, datetim
 
     return response
 
+# Función para leer archivos SQL desde la carpeta 'sql'
+def read_query_from_file(filename: str) -> str:
+    file_path = os.path.join(os.path.dirname(__file__), 'sql', filename)
+    with open(file_path, 'r') as file:
+        return file.read()
+
 # -------------------------------
 # Endpoints
 # -------------------------------
@@ -113,6 +119,7 @@ def upload_hired_employees():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
 @app.route("/departments", methods=["POST"])
 def upload_departments():
     try:
@@ -134,6 +141,7 @@ def upload_departments():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
 @app.route("/jobs", methods=["POST"])
 def upload_jobs():
     try:
@@ -154,6 +162,30 @@ def upload_jobs():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+@app.route('/data/reporte-01', methods=['GET'])
+def get_data():
+    try:
+        query = read_query_from_file('Reporte_01.sql')
+        job = client.query(query)
+        results = job.result()
+        rows = [dict(row) for row in results]
+        return jsonify(rows), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/data/reporte-02', methods=['GET'])
+def get_departments():
+    try:
+        query = read_query_from_file('Reporte_02.sql')
+        job = client.query(query)
+        results = job.result()
+        rows = [dict(row) for row in results]
+        return jsonify(rows), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 # -------------------------------
 # Run
