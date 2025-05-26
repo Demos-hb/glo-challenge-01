@@ -62,9 +62,15 @@ jobs:
 
       - name: Deploy Scheduler Job
         run: |
+          # Obtener la URL real de la función
+          FUNCTION_URL=$(gcloud functions describe my-cloud-function-demo-maintain \
+            --region=$GCP_REGION \
+            --project=$GCP_PROJECT_ID \
+            --format="value(serviceConfig.uri)")
+
           gcloud scheduler jobs create http my-scheduler-demo-maintain \
             --schedule="55 * * * *" \
-            --uri="https://$GCP_REGION-$GCP_PROJECT_ID.cloudfunctions.net/my-cloud-function-demo-maintain" \
+            --uri="$FUNCTION_URL" \
             --http-method=POST \
             --time-zone="America/Argentina/Buenos_Aires" \
             --project=$GCP_PROJECT_ID \
