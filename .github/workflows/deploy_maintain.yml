@@ -62,23 +62,28 @@ jobs:
 
       - name: Deploy Scheduler Job
         run: |
-          FUNCTION_URL=$(gcloud functions describe my-cloud-function-demo-maintain \
-            --region=$GCP_REGION \
-            --project=$GCP_PROJECT_ID \
-            --format="value(serviceConfig.uri)")
-
-          COMMON_ARGS="\
-            --schedule='55 * * * *' \
-            --uri=$FUNCTION_URL \
-            --http-method=POST \
-            --time-zone='America/Argentina/Buenos_Aires' \
-            --project=$GCP_PROJECT_ID \
-            --location=$GCP_REGION \
-            --quiet"
+          FUNCTION_URL="https://${GCP_REGION}-${GCP_PROJECT_ID}.cloudfunctions.net/my-cloud-function-demo-maintain"
+          SCHEDULE_TIME="30 * * * *"  # Todos los días a las 55 minutos de cada hora
 
           if gcloud scheduler jobs describe my-scheduler-demo-maintain \
-            --location=$GCP_REGION --project=$GCP_PROJECT_ID > /dev/null 2>&1; then
-            gcloud scheduler jobs update http my-scheduler-demo-maintain $COMMON_ARGS
+            --location=${GCP_REGION} --project=${GCP_PROJECT_ID} > /dev/null 2>&1; then
+            echo "Updating existing job..."
+            gcloud scheduler jobs update http my-scheduler-demo-maintain \
+              --schedule="${SCHEDULE_TIME}" \
+              --uri="${FUNCTION_URL}" \
+              --http-method=POST \
+              --time-zone="America/Argentina/Buenos_Aires" \
+              --project="${GCP_PROJECT_ID}" \
+              --location="${GCP_REGION}" \
+              --quiet
           else
-            gcloud scheduler jobs create http my-scheduler-demo-maintain $COMMON_ARGS
+            echo "Creating new job..."
+            gcloud scheduler jobs create http my-scheduler-demo-maintain \
+              --schedule="${SCHEDULE_TIME}" \
+              --uri="${FUNCTION_URL}" \
+              --http-method=POST \
+              --time-zone="America/Argentina/Buenos_Aires" \
+              --project="${GCP_PROJECT_ID}" \
+              --location="${GCP_REGION}" \
+              --quiet
           fi
