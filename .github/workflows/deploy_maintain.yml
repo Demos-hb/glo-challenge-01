@@ -72,6 +72,7 @@ jobs:
               --schedule="${SCHEDULE_TIME}" \
               --uri="${FUNCTION_URL}" \
               --http-method=POST \
+              --oidc-service-account-email="$GCP_SA_NAME@$GCP_PROJECT_ID.iam.gserviceaccount.com" \
               --time-zone="America/Argentina/Buenos_Aires" \
               --project="${GCP_PROJECT_ID}" \
               --location="${GCP_REGION}" \
@@ -82,6 +83,7 @@ jobs:
               --schedule="${SCHEDULE_TIME}" \
               --uri="${FUNCTION_URL}" \
               --http-method=POST \
+              --oidc-service-account-email="$GCP_SA_NAME@$GCP_PROJECT_ID.iam.gserviceaccount.com" \
               --time-zone="America/Argentina/Buenos_Aires" \
               --project="${GCP_PROJECT_ID}" \
               --location="${GCP_REGION}" \
