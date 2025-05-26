@@ -22,7 +22,7 @@ Este proyecto expone una API REST construida con Flask para:
 
 ## 🚀 Despliegue
 
-Esta API está diseñada para ejecutarse en **Cloud Functions** o cualquier entorno compatible con Flask.
+Esta API está diseñada para ejecutarse en **Cloud Run** o cualquier entorno compatible con Flask.
 
 ### Variables de entorno requeridas
 
@@ -87,7 +87,7 @@ Carga tipos de trabajo.
 
 - Todos los campos deben ser distintos de `null`.
 - Los registros válidos se insertan en BigQuery.
-- Los registros inválidos se guardan como JSON en `gs://demo-log-hb/log/`.
+- Los registros inválidos se guardan como JSON en Cloud Storage : `gs://demo-log-hb/log/`.
 
 ---
 
@@ -162,7 +162,7 @@ gs://demo-log-hb/log/<prefix>_invalid_<timestamp>.json
 ## 📝 Notas
 
 - El batch está limitado a 1000 registros por request.
-- Las funciones están pensadas para ser llamadas desde un programador como Cloud Scheduler.
+- Se cuenta con una carpeta test para hacer pruebas locales.
 
 ---
 
