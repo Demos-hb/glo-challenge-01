@@ -151,4 +151,4 @@ gs://demo-log-hb/log/<prefix>_invalid_<timestamp>.json
 
 ## 📧 Contacto
 
-Para soporte o preguntas, podés contactarme a través de [tu_correo@ejemplo.com].
+Para soporte o preguntas, podés contactarme a través de harben16@gmail.com.
