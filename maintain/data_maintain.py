@@ -97,3 +97,4 @@ class BigQueryDataManager:
         for table in self.csv_files.keys():
             self.restore_table(table, date)
         print("Restore complete")
+

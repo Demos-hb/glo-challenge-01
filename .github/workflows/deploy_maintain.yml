@@ -1,4 +1,4 @@
-name: Deploy to Cloud Function
+name: Deploy to Cloud Function && Scheduler
 
 on:
   push:
@@ -55,7 +55,37 @@ jobs:
           runtime: python310
           entry_point: main
           source_dir: ./maintain
-          region: us-central1
+          region: ${{ env.GCP_REGION }}
           trigger_http: true
           allow_unauthenticated: true
           service_account: ${{ env.GCP_SA_NAME }}@${{ env.GCP_PROJECT_ID }}.iam.gserviceaccount.com
+
+      - name: Deploy Scheduler Job
+        run: |
+          FUNCTION_URL="https://${GCP_REGION}-${GCP_PROJECT_ID}.cloudfunctions.net/my-cloud-function-demo-maintain"
+          SCHEDULE_TIME="0 1 * * *"  
+
+          if gcloud scheduler jobs describe my-scheduler-demo-maintain \
+            --location=${GCP_REGION} --project=${GCP_PROJECT_ID} > /dev/null 2>&1; then
+            echo "Updating existing job..."
+            gcloud scheduler jobs update http my-scheduler-demo-maintain \
+              --schedule="${SCHEDULE_TIME}" \
+              --uri="${FUNCTION_URL}" \
+              --http-method=POST \
+              --oidc-service-account-email="$GCP_SA_NAME@$GCP_PROJECT_ID.iam.gserviceaccount.com" \
+              --time-zone="America/Argentina/Buenos_Aires" \
+              --project="${GCP_PROJECT_ID}" \
+              --location="${GCP_REGION}" \
+              --quiet
+          else
+            echo "Creating new job..."
+            gcloud scheduler jobs create http my-scheduler-demo-maintain \
+              --schedule="${SCHEDULE_TIME}" \
+              --uri="${FUNCTION_URL}" \
+              --http-method=POST \
+              --oidc-service-account-email="$GCP_SA_NAME@$GCP_PROJECT_ID.iam.gserviceaccount.com" \
+              --time-zone="America/Argentina/Buenos_Aires" \
+              --project="${GCP_PROJECT_ID}" \
+              --location="${GCP_REGION}" \
+              --quiet
+          fi
