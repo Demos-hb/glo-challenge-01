@@ -58,4 +58,4 @@ jobs:
           region: us-central1
           trigger_http: true
           allow_unauthenticated: true
-          service_account: $GCP_SA_NAME@$GCP_PROJECT_ID.iam.gserviceaccount.com
+          service_account: int-datalake-generator-dag-uat@iter-data-storage-pv-uat.iam.gserviceaccount.com
