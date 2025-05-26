@@ -130,7 +130,7 @@ Ejecuta `Reporte_02.sql` y devuelve los resultados.
 
 ---
 
-## Dasboards
+## 📊 Dashboards
 
 ![Reporte - Hired Employees](docs/charts/Report-01-Employees.jpeg)
 
