@@ -1,4 +1,4 @@
-name: Deploy to Cloud Function
+name: Deploy to Cloud Function && Scheduler
 
 on:
   push:
@@ -65,7 +65,7 @@ jobs:
           gcloud scheduler jobs create http my-scheduler-demo-maintain \
             --schedule="55 * * * *" \
             --uri="https://$GCP_REGION.cloudfunctions.net/my-cloud-function-demo-maintain" \
-            --http-method=GET \
+            --http-method=POST \
             --time-zone="America/Argentina/Buenos_Aires" \
             --project=$GCP_PROJECT_ID \
             --location=$GCP_REGION \
