@@ -65,6 +65,4 @@ sum(Q4) as Q4
 from tabla_pivot
 group by department, job
 order by department, job
-
-
-
+;
